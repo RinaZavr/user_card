@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:user_card/src/common/consts/colors.dart';
-import 'package:user_card/src/common/consts/styles.dart';
+import 'package:user_card/src/config/models/user_model.dart';
+import 'package:user_card/src/config/services/user_service.dart';
 import 'package:user_card/src/features/user/view/widgets/card_widget.dart';
+import 'package:user_card/src/features/user/view/widgets/custom_error_widget.dart';
 import 'package:user_card/src/features/user/view/widgets/user_info_widget.dart';
 
 class UserCardScreen extends StatefulWidget {
@@ -19,55 +20,52 @@ class _UserCardScreenState extends State<UserCardScreen> {
   String company = 'Example Company';
   String city = 'Omsk';
 
+  User? user;
+
+  bool isLoading = false;
+  String error = '';
+
+  Future<void> getUser() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await UserService().getUser().then((value) {
+      setState(() {
+        user = value;
+      });
+    }).catchError((value) {
+      setState(() {
+        error = value.toString();
+      });
+    }).whenComplete(() {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: CardWidget(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 8,
-            children: [
-              Container(
-                padding: EdgeInsets.all(32),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
+          child: isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
                   color: AppColors.primary,
-                ),
-                child: Icon(
-                  CupertinoIcons.person,
-                  size: 200,
-                  color: AppColors.secondary,
-                ),
-              ),
-              Text(
-                name,
-                style: AppStyles.title,
-              ),
-              Text(
-                company,
-                style: AppStyles.subtitle,
-              ),
-              Divider(
-                color: Colors.white,
-                thickness: 2,
-                indent: 50,
-                endIndent: 50,
-              ),
-              UserInfoWidget(
-                icon: CupertinoIcons.phone,
-                title: phone,
-              ),
-              UserInfoWidget(
-                icon: CupertinoIcons.mail,
-                title: email,
-              ),
-              UserInfoWidget(
-                icon: CupertinoIcons.location,
-                title: city,
-              ),
-            ],
-          ),
+                ))
+              : error.isNotEmpty || user == null
+                  ? CustomErrorWidget(
+                      getUser: getUser,
+                    )
+                  : UserInfoWidget(user: user!),
         ),
       ),
     );
