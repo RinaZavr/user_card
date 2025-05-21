@@ -2,11 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:user_card/src/config/models/user_model.dart';
 
 class UserService {
-  factory UserService() {
-    return UserService._();
-  }
-
-  UserService._();
+  static final UserService _instance = UserService._internal();
+  factory UserService() => _instance;
+  UserService._internal();
 
   final Dio _dio = Dio(
     BaseOptions(
