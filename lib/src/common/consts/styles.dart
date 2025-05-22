@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:user_card/src/common/consts/colors.dart';
 
+/// Класс констант стилей
 abstract class AppStyles {
   static const TextStyle title = TextStyle(
     fontSize: 28,

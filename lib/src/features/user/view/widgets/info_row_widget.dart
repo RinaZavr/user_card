@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:user_card/src/common/consts/colors.dart';
 import 'package:user_card/src/common/consts/styles.dart';
 
+/// Виджет для доп информации о пользователе, 
+/// так как используется несколько раз, то вынесен в отдельный виджет
 class InfoRowWidget extends StatelessWidget {
   const InfoRowWidget({
     super.key,

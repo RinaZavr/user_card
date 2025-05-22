@@ -1,3 +1,4 @@
+/// Модель данных о пользователе
 class User {
   User({
     required this.id,
@@ -8,6 +9,7 @@ class User {
     required this.city,
   });
 
+  /// Конструктор для парсинга данных с API
   User.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],

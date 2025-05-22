@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:user_card/src/common/consts/colors.dart';
 import 'package:user_card/src/common/consts/styles.dart';
 
+/// Виджет с сообщением об ошибке и кнопкой Повторить
 class CustomErrorWidget extends StatelessWidget {
   const CustomErrorWidget({super.key, required this.getUser});
 

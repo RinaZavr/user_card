@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Класс констант цветов
 abstract class AppColors {
   static const mainGradientFirst = Color(0xFFfe5f62);
   static const mainGradientSecond = Color(0xFFef9652);

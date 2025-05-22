@@ -5,10 +5,11 @@ import 'package:user_card/src/common/consts/styles.dart';
 import 'package:user_card/src/config/models/user_model.dart';
 import 'package:user_card/src/features/user/view/widgets/info_row_widget.dart';
 
+/// Виджет, отображающий информацию о пользователе
 class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({super.key, required this.user});
 
-  final User user;
+  final User user; // Данные о пользователе из Api
 
   @override
   Widget build(BuildContext context) {
